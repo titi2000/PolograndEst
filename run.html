@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur Running 2 Semaines</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #3b82f6;
+            --bg: #f8fafc;
+            --text: #334155;
+            --hardcore: #dc2626;
+            --easy: #22c55e;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            max-width: 550px;
+            width: 100%;
+        }
+
+        h1 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--accent);
+            outline: none;
+        }
+
+        /* Style du Slider de difficulté */
+        .range-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        input[type="range"] {
+            flex-grow: 1;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        #diff-val {
+            font-weight: bold;
+            min-width: 80px;
+            text-align: right;
+            color: var(--accent);
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.1s, opacity 0.2s;
+            margin-top: 10px;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        #preview {
+            margin-top: 2rem;
+            border-top: 2px dashed #e2e8f0;
+            padding-top: 1.5rem;
+            display: none;
+        }
+
+        .week-card {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border-left: 6px solid var(--accent);
+        }
+
+        .week-title {
+            font-weight: bold;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .session-item {
+            margin-bottom: 6px;
+            padding-left: 10px;
+            border-left: 2px solid #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .btn-pdf {
+            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>⚡ Flash Running 2 Weeks</h1>
+    <p class="subtitle">Programme court et intensif adapté à votre niveau</p>
+
+    <div class="form-group">
+        <label for="distance">Votre max actuel (km) :</label>
+        <input type="number" id="distance" placeholder="Ex: 5" min="1" step="0.5">
+    </div>
+
+    <div class="form-group">
+        <label for="goal">Objectif :</label>
+        <select id="goal">
+            <option value="endurance">Endurance (Volume & Souffle)</option>
+            <option value="explosion">Explosion (Vitesse & Puissance)</option>
+            <option value="weightloss">Perte de poids (Cardio long)</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="difficulty">Niveau de difficulté (1 à 5) :</label>
+        <div class="range-container">
+            <span style="font-size:0.8rem">Cool</span>
+            <input type="range" id="difficulty" min="1" max="5" value="3" oninput="updateDiffLabel(this.value)">
+            <span style="font-size:0.8rem">Hard</span>
+        </div>
+        <div style="text-align: center; margin-top: 5px; font-size: 0.9rem;" id="diff-text">
+            Niveau 3 : Standard
+        </div>
+    </div>
+
+    <button onclick="generateProgram()">Générer le plan 2 semaines</button>
+
+    <div id="preview">
+        <div id="program-content"></div>
+        <button class="btn-pdf" id="downloadBtn" onclick="downloadPDF()">📄 Télécharger le PDF</button>
+    </div>
+</div>
+
+<script>
+    let currentProgram = [];
+    let userGoal = "";
+    let startDistance = 0;
+    let difficultyLevel = 3;
+    let diffText = "Standard";
+
+    // Mise à jour du texte de difficulté
+    function updateDiffLabel(val) {
+        difficultyLevel = parseInt(val);
+        const labels = {
+            1: "Niveau 1 : Cool (Récupération)",
+            2: "Niveau 2 : Facile",
+            3: "Niveau 3 : Standard",
+            4: "Niveau 4 : Difficile",
+            5: "Niveau 5 : 🔥 HARDCORE"
+        };
+        document.getElementById('diff-text').innerHTML = labels[val];
+        document.getElementById('diff-text').style.color = val == 5 ? '#dc2626' : '#334155';
+        document.getElementById('diff-text').style.fontWeight = val == 5 ? 'bold' : 'normal';
+        diffText = labels[val];
+    }
+
+    function generateProgram() {
+        startDistance = parseFloat(document.getElementById('distance').value);
+        userGoal = document.getElementById('goal').value;
+        const previewDiv = document.getElementById('preview');
+        const contentDiv = document.getElementById('program-content');
+
+        if (!startDistance || startDistance <= 0) {
+            alert("Entrez une distance valide !");
+            return;
+        }
+
+        currentProgram = [];
+        
+        // Calcul du multiplicateur de difficulté
+        // 1 = 0.8x | 3 = 1.0x | 5 = 1.3x
+        const difficultyMod = 1 + ((difficultyLevel - 3) * 0.15);
+
+        for (let week = 1; week <= 2; week++) {
+            let weekPlan = {
+                week: week,
+                sessions: []
+            };
+
+            // Progression légère entre S1 et S2 (+10%)
+            let progression = week === 2 ? 1.1 : 1.0; 
+            let base = startDistance * difficultyMod * progression;
+
+            if (userGoal === 'endurance') {
+                weekPlan.sessions.push(`Footing facile : ${(base * 0.7).toFixed(1)} km`);
+                weekPlan.sessions.push(`Allure course : ${(base * 0.5).toFixed(1)} km`);
+                weekPlan.sessions.push(`Sortie Longue : ${(base * 1.0).toFixed(1)} km`);
+            } 
+            else if (userGoal === 'explosion') {
+                // Pour l'explosion, la difficulté augmente le nombre de répétitions
+                let reps = Math.round(8 * difficultyMod * progression); 
+                weekPlan.sessions.push(`Fartlek : 20' échauffement + 10' rapide`);
+                weekPlan.sessions.push(`Fractionné court : ${reps} x (30" Vite / 30" Lent)`);
+                weekPlan.sessions.push(`Côtes : ${Math.round(reps/1.5)} montées explosives`);
+            } 
+            else if (userGoal === 'weightloss') {
+                // Pour perte de poids, la difficulté augmente le temps
+                let time = Math.round(40 * difficultyMod * progression);
+                weekPlan.sessions.push(`Endurance Fondamentale : ${time} min`);
+                weekPlan.sessions.push(`Fractionné long : ${(base * 0.6).toFixed(1)} km (varier allure)`);
+                weekPlan.sessions.push(`Sortie longue à jeun (optionnel) : ${time + 10} min`);
+            }
+
+            currentProgram.push(weekPlan);
+        }
+
+        // Affichage HTML
+        let html = "";
+        currentProgram.forEach(w => {
+            html += `<div class="week-card">
+                        <span class="week-title">Semaine ${w.week}</span>
+                        <div class="session-item">1. ${w.sessions[0]}</div>
+                        <div class="session-item">2. ${w.sessions[1]}</div>
+                        <div class="session-item">3. ${w.sessions[2]}</div>
+                     </div>`;
+        });
+
+        contentDiv.innerHTML = html;
+        previewDiv.style.display = 'block';
+    }
+
+    function downloadPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        // En-tête coloré selon la difficulté
+        let headerColor = [15, 23, 42]; // Dark blue default
+        if(difficultyLevel === 5) headerColor = [220, 38, 38]; // Red for hardcore
+        if(difficultyLevel === 1) headerColor = [34, 197, 94]; // Green for easy
+
+        doc.setFillColor(...headerColor);
+        doc.rect(0, 0, 210, 45, 'F');
+        
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(24);
+        doc.text("Programme Running 2 Semaines", 105, 20, null, null, "center");
+        
+        doc.setFontSize(12);
+        doc.text(`Obj: ${userGoal.toUpperCase()} | Base: ${startDistance}km | Diff: ${difficultyLevel}/5`, 105, 35, null, null, "center");
+
+        let tableBody = [];
+        
+        currentProgram.forEach(w => {
+            tableBody.push([
+                { content: `SEMAINE ${w.week}`, colSpan: 2, styles: { fillColor: [241, 245, 249], textColor: [15, 23, 42], fontStyle: 'bold', halign: 'center' } }
+            ]);
+            tableBody.push(["Séance 1", w.sessions[0]]);
+            tableBody.push(["Séance 2", w.sessions[1]]);
+            tableBody.push(["Séance 3", w.sessions[2]]);
+        });
+
+        doc.autoTable({
+            startY: 55,
+            head: [['Session', 'Détails du training']],
+            body: tableBody,
+            theme: 'grid',
+            headStyles: { fillColor: headerColor },
+            styles: { fontSize: 11, cellPadding: 7, valign: 'middle' },
+            columnStyles: { 0: { cellWidth: 35, fontStyle: 'bold' } }
+        });
+
+        // Warning Hardcore
+        if (difficultyLevel >= 4) {
+            doc.setTextColor(220, 38, 38);
+            doc.setFontSize(10);
+            doc.text("ATTENTION : Programme intensif. Arrêtez en cas de douleur anormale.", 105, 270, null, null, "center");
+        }
+
+        doc.save(`programme_running_${userGoal}_2semaines.pdf`);
+    }
+</script>
+
+</body>
+</html>
