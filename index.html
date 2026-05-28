@@ -1,11 +1,884 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; URL=https://mydukaan.io/polograndest/categories/goodies">
-  <title>Redirection...</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kayak Polo Grand Est</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a2744;
+    --blue: #2c4fa3;
+    --blue-mid: #3f5ab6;
+    --ice: #e8f0fb;
+    --water: #a8c4f0;
+    --gold: #f0a020;
+    --white: #ffffff;
+    --off-white: #f5f7fc;
+    --gray: #8a9ab5;
+    --dark: #0d1628;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--dark);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+    height: 70px;
+    background: rgba(13,22,40,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(63,90,182,0.3);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-logo img {
+    height: 44px;
+    width: 44px;
+    object-fit: contain;
+    filter: brightness(1.1);
+  }
+
+  .nav-brand {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.2;
+    color: var(--white);
+  }
+
+  .nav-brand span {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--water);
+    letter-spacing: 0.15em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--water);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 0 2rem;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 80%, rgba(44,79,163,0.4) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 20% 20%, rgba(63,90,182,0.2) 0%, transparent 60%),
+      linear-gradient(180deg, #0d1628 0%, #111f3a 50%, #0a1525 100%);
+  }
+
+  .hero-water {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    height: 220px;
+    background: linear-gradient(180deg, transparent, rgba(44,79,163,0.15) 50%, rgba(26,39,68,0.8));
+    overflow: hidden;
+  }
+
+  .wave {
+    position: absolute;
+    bottom: 0;
+    left: -10%;
+    width: 120%;
+    height: 120px;
+    opacity: 0.18;
+  }
+
+  .wave1 { animation: waveMove 8s ease-in-out infinite; fill: var(--blue); }
+  .wave2 { animation: waveMove 10s ease-in-out infinite reverse; fill: var(--water); opacity: 0.1; bottom: 20px; }
+
+  @keyframes waveMove {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-5%); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 900px;
+  }
+
+  .hero-logo {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 2rem;
+    filter: drop-shadow(0 0 30px rgba(63,90,182,0.5));
+    animation: floatLogo 4s ease-in-out infinite;
+  }
+
+  @keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 10vw, 120px);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    text-shadow: 0 4px 40px rgba(63,90,182,0.4);
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--water);
+    margin-top: 1.5rem;
+    letter-spacing: 0.04em;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 2.5rem;
+    padding: 14px 36px;
+    background: var(--blue-mid);
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  .hero-cta:hover {
+    background: var(--blue);
+    transform: translateY(-2px);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--gray);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: 'Barlow Condensed', sans-serif;
+    animation: fadeInUp 1s 1s both;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(180deg, transparent, var(--gray));
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(0.8); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 7rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 5vw, 64px);
+    line-height: 1;
+    letter-spacing: 0.03em;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+
+  .section-sep {
+    width: 48px;
+    height: 3px;
+    background: var(--gold);
+    margin-bottom: 2rem;
+  }
+
+  /* CHAMPIONSHIP RESULTS */
+  .results-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 3rem;
+    background: rgba(63,90,182,0.15);
+    border: 1px solid rgba(63,90,182,0.3);
+  }
+
+  .result-card {
+    background: rgba(13,22,40,0.95);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .result-card:hover {
+    background: rgba(26,39,68,0.98);
+  }
+
+  .result-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--blue-mid);
+  }
+
+  .result-rank {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 90px;
+    line-height: 1;
+    color: rgba(63,90,182,0.12);
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .result-cat {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--water);
+    margin-bottom: 0.5rem;
+  }
+
+  .result-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+
+  .result-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(63,90,182,0.2);
+    border: 1px solid rgba(63,90,182,0.5);
+    padding: 8px 18px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--water);
+  }
+
+  .result-badge .place {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--gold);
+  }
+
+  .result-comp {
+    font-size: 13px;
+    color: var(--gray);
+    margin-top: 1rem;
+    letter-spacing: 0.03em;
+  }
+
+  /* CHAMPIONNAT RÉGIONAL */
+  .regional-wrapper {
+    background: rgba(26,39,68,0.5);
+    border: 1px solid rgba(63,90,182,0.25);
+    padding: 3rem;
+    margin-top: 3rem;
+  }
+
+  .regional-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(63,90,182,0.2);
+  }
+
+  .manches-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 2rem;
+  }
+
+  .manche-card {
+    background: rgba(13,22,40,0.8);
+    border: 1px solid rgba(63,90,182,0.2);
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+    position: relative;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .manche-card:hover {
+    border-color: rgba(63,90,182,0.6);
+    transform: translateY(-3px);
+  }
+
+  .manche-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: rgba(63,90,182,0.3);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .manche-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--water);
+  }
+
+  .manche-sub {
+    font-size: 12px;
+    color: var(--gray);
+    margin-top: 4px;
+  }
+
+  .teams-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 2rem;
+  }
+
+  .team-pill {
+    background: rgba(63,90,182,0.12);
+    border: 1px solid rgba(63,90,182,0.3);
+    padding: 8px 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--water);
+  }
+
+  .teams-count {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px;
+    line-height: 1;
+    color: var(--blue-mid);
+  }
+
+  .teams-label {
+    font-size: 14px;
+    color: var(--gray);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+  }
+
+  /* COMMISSION */
+  .commission-block {
+    margin-top: 3rem;
+    background: rgba(26,39,68,0.4);
+    border: 1px solid rgba(63,90,182,0.25);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    overflow: hidden;
+  }
+
+  .commission-accent {
+    width: 6px;
+    background: linear-gradient(180deg, var(--blue-mid), var(--gold));
+  }
+
+  .commission-content {
+    padding: 2.5rem;
+  }
+
+  .commission-role {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .commission-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .commission-desc {
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.7;
+    max-width: 520px;
+  }
+
+  .avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(63,90,182,0.3);
+    border: 2px solid rgba(63,90,182,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.05em;
+    color: var(--water);
+    margin-bottom: 1rem;
+  }
+
+  /* STATS BAND */
+  .stats-band {
+    background: rgba(44,79,163,0.15);
+    border-top: 1px solid rgba(63,90,182,0.2);
+    border-bottom: 1px solid rgba(63,90,182,0.2);
+    padding: 3rem 2rem;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .stats-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 1.5rem;
+    border-right: 1px solid rgba(63,90,182,0.2);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    line-height: 1;
+    color: var(--white);
+  }
+
+  .stat-unit {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--gold);
+  }
+
+  .stat-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-top: 4px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #080e1c;
+    border-top: 1px solid rgba(63,90,182,0.2);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1.5rem;
+    filter: grayscale(0.3) brightness(0.8);
+  }
+
+  .footer-text {
+    font-size: 13px;
+    color: var(--gray);
+    line-height: 1.7;
+  }
+
+  .footer-text strong {
+    color: var(--water);
+    font-weight: 500;
+  }
+
+  /* DIVIDER */
+  .full-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(63,90,182,0.4), transparent);
+    margin: 0;
+  }
+
+  /* ANIMATE ON SCROLL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* KAYAK ICON */
+  .paddle-icon {
+    display: inline-block;
+    width: 32px;
+    height: 8px;
+    background: linear-gradient(90deg, var(--gold), rgba(240,160,32,0.4));
+    margin: 0 6px;
+    vertical-align: middle;
+    clip-path: polygon(4px 0%, 100% 50%, 100% 50%, 4px 100%, 0% 50%);
+  }
+</style>
 </head>
 <body>
-  <p>Redirection en cours... Si vous n'êtes pas redirigé, <a href="https://mydukaan.io/polograndest/categories/goodies">cliquez ici</a>.</p>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="GRANDESTLOGO.svg" alt="Logo Kayak Polo Grand Est" id="navLogo">
+    <div class="nav-brand">
+      Kayak Polo
+      <span>Grand Est</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#resultats">Résultats</a></li>
+    <li><a href="#regional">Championnat Régional</a></li>
+    <li><a href="#commission">Commission</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-water">
+    <svg class="wave wave1" viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M0,60 C200,100 400,20 600,60 C800,100 1000,20 1200,60 L1200,120 L0,120 Z"/>
+    </svg>
+    <svg class="wave wave2" viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M0,40 C300,80 600,10 900,50 C1050,70 1150,30 1200,40 L1200,120 L0,120 Z"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <img src="GRANDESTLOGO.svg" alt="Logo" class="hero-logo" id="heroLogo">
+    <p class="hero-eyebrow">Ligue Grand Est · Saison 2026</p>
+    <h1 class="hero-title">
+      KAYAK<br>POLO<br><em>GRAND EST</em>
+    </h1>
+    <p class="hero-sub">
+      Compétition · Passion · Territoire
+    </p>
+    <a href="#resultats" class="hero-cta">
+      Découvrir la saison →
+    </a>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Défiler
+  </div>
+</div>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Équipes nationales</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">9<span class="stat-unit">ème</span></div>
+      <div class="stat-label">Place en France</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Équipes régionales</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Manches régionales</div>
+    </div>
+  </div>
+</div>
+
+<div class="full-divider"></div>
+
+<!-- RÉSULTATS NATIONAUX -->
+<section id="resultats">
+  <div class="reveal">
+    <p class="section-label">Championnat de France · 2026</p>
+    <h2 class="section-title">Résultats Nationaux</h2>
+    <div class="section-sep"></div>
+    <p style="color: var(--gray); font-size: 16px; max-width: 600px; line-height: 1.7;">
+      Deux équipes Grand Est engagées au niveau national cette saison. Une belle représentation de notre région sur la scène nationale du kayak polo.
+    </p>
+  </div>
+
+  <div class="results-grid reveal">
+    <div class="result-card">
+      <div class="result-rank">9</div>
+      <div class="result-cat">Catégorie jeunes</div>
+      <div class="result-name">Équipe U15</div>
+      <div class="result-badge">
+        <span class="place">9<sup style="font-size:14px">e</sup></span>
+        Place · France
+      </div>
+      <p class="result-comp">Championnat de France 2026 · Catégorie U15</p>
+    </div>
+
+    <div class="result-card">
+      <div class="result-rank">9</div>
+      <div class="result-cat">Catégorie jeunes</div>
+      <div class="result-name">Équipe U18</div>
+      <div class="result-badge">
+        <span class="place">9<sup style="font-size:14px">e</sup></span>
+        Place · France
+      </div>
+      <p class="result-comp">Championnat de France 2026 · Catégorie U18</p>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- CHAMPIONNAT RÉGIONAL -->
+<section id="regional">
+  <div class="reveal">
+    <p class="section-label">Championnat Régional</p>
+    <h2 class="section-title">Ligue Grand Est</h2>
+    <div class="section-sep"></div>
+  </div>
+
+  <div class="regional-wrapper reveal">
+    <div class="regional-header">
+      <div>
+        <p style="color: var(--gray); font-size: 15px; line-height: 1.7; max-width: 520px;">
+          Le championnat régional de kayak polo Grand Est réunit les meilleures équipes de la région sur quatre manches de compétition. Un format qui garantit suspense et régularité tout au long de la saison.
+        </p>
+        <div class="teams-row" style="margin-top: 1.5rem;">
+          <div class="team-pill">8 équipes engagées</div>
+          <div class="team-pill">4 manches</div>
+          <div class="team-pill">Saison 2026</div>
+        </div>
+      </div>
+      <div style="text-align: center;">
+        <div class="teams-count">8</div>
+        <div class="teams-label">Équipes</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+      <p class="section-label" style="font-size: 11px;">Format de compétition</p>
+      <p style="font-size: 14px; color: var(--gray);">Quatre manches réparties sur la saison, chacune permettant aux équipes d'accumuler des points au classement général.</p>
+    </div>
+
+    <div class="manches-grid">
+      <div class="manche-card">
+        <div class="manche-num">01</div>
+        <div class="manche-label">Manche 1</div>
+        <div class="manche-sub">Championnat Régional</div>
+      </div>
+      <div class="manche-card">
+        <div class="manche-num">02</div>
+        <div class="manche-label">Manche 2</div>
+        <div class="manche-sub">Championnat Régional</div>
+      </div>
+      <div class="manche-card">
+        <div class="manche-num">03</div>
+        <div class="manche-label">Manche 3</div>
+        <div class="manche-sub">Championnat Régional</div>
+      </div>
+      <div class="manche-card">
+        <div class="manche-num">04</div>
+        <div class="manche-label">Manche 4</div>
+        <div class="manche-sub">Championnat Régional</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- COMMISSION -->
+<section id="commission">
+  <div class="reveal">
+    <p class="section-label">Organisation</p>
+    <h2 class="section-title">Commission Régionale</h2>
+    <div class="section-sep"></div>
+    <p style="color: var(--gray); font-size: 16px; max-width: 600px; line-height: 1.7;">
+      La commission régionale de kayak polo Grand Est coordonne le développement de la discipline, l'organisation des compétitions et le soutien aux clubs du territoire.
+    </p>
+  </div>
+
+  <div class="commission-block reveal">
+    <div class="commission-accent"></div>
+    <div class="commission-content">
+      <div class="avatar">MJ</div>
+      <div class="commission-role">Présidente de la Commission Régionale de Kayak Polo</div>
+      <div class="commission-name">Maëlis Jendoubi Chrzan</div>
+      <p class="commission-desc">
+        Responsable de la commission régionale kayak polo Grand Est, en charge du développement et de l'organisation de la pratique au sein de la ligue.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <img src="GRANDESTLOGO.svg" alt="Logo Kayak Polo Grand Est" class="footer-logo" id="footerLogo">
+  <p class="footer-text">
+    <strong>Kayak Polo Grand Est</strong> — Ligue régionale · Saison 2026<br>
+    Commission régionale présidée par <strong>Maëlis Jendoubi Chrzan</strong>
+  </p>
+  <p class="footer-text" style="margin-top: 1.5rem; opacity: 0.5; font-size: 12px;">
+    Fédération Française de Canoë-Kayak · Ligue Grand Est
+  </p>
+</footer>
+
+<script>
+  const svgContent = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0.00 0.00 1024.00 1024.00">
+<g stroke-width="2.00" fill="none" stroke-linecap="butt">
+<path stroke="#2c3866" d="M 497.65 200.96 Q 509.94 201.88 517.78 203.42 Q 525.07 204.85 529.02 211.60 C 529.95 213.20 531.54 214.78 533.07 214.96 C 537.75 215.52 543.28 217.25 543.62 222.71 A 1.33 1.25 70.2 0 0 545.65 223.75 Q 546.50 223.08 546.67 221.61 Q 547.49 214.16 546.63 209.16 C 545.24 201.17 542.58 193.45 536.70 188.30 Q 530.07 182.50 520.32 182.43"/>
+</g>
+<path fill="#3f5ab6" d="M 546.42 854.70 Q 567.39 838.53 585.35 818.57 Q 657.03 738.87 664.66 630.67 A 1.37 1.37 0.0 0 1 666.27 629.42 L 736.58 642.32 A 2.12 2.12 0.0 0 1 738.30 644.66 Q 726.18 745.60 653.66 815.91 C 646.29 823.06 637.69 828.30 627.43 832.88 Q 593.35 848.07 552.27 855.05 Q 549.15 855.59 546.61 855.35 A 0.37 0.36 28.9 0 1 546.42 854.70 Z"/>
+<path fill="#3f5ab6" d="M 473.94 722.52 Q 452.12 758.50 418.11 783.38 C 415.70 785.14 414.88 784.26 412.17 782.93 Q 318.77 737.04 259.12 651.42 A 1.67 1.66 66.6 0 1 260.14 648.84 Q 297.80 640.79 331.97 633.46 Q 333.81 633.06 335.37 634.64 Q 394.27 693.86 473.48 721.25 A 0.87 0.87 0.0 0 1 473.94 722.52 Z"/>
+<path fill="#ffffff" d="M 365.97 628.72 A 0.51 0.50 74.4 0 1 366.36 628.02 Q 434.35 618.89 502.44 618.68 A 1.16 1.16 0.0 0 1 503.60 619.87 Q 502.71 660.73 487.43 697.35 Q 486.55 699.47 483.91 698.58 Q 426.99 679.41 380.01 641.49 Q 372.75 635.63 366.74 629.76 Q 366.19 629.22 365.97 628.72 Z"/>
+<path fill="#ffffff" d="M 388.29 829.10 A 0.54 0.53 72.9 0 1 388.60 828.51 Q 449.44 801.80 486.26 749.05 C 506.51 720.05 519.63 686.37 525.43 651.11 C 527.18 640.48 527.53 630.71 527.90 620.40 A 1.61 1.61 0.0 0 1 529.51 618.85 Q 584.10 619.03 638.52 625.73 A 1.46 1.45 -85.2 0 1 639.80 627.25 C 634.61 723.26 580.84 809.87 497.53 857.20 A 4.92 4.88 -57.8 0 1 494.81 857.83 Q 439.85 854.35 389.17 830.11 Q 388.42 829.75 388.29 829.10 Z"/>
+</svg>`;
+
+  function loadSVGAsImg(imgEl) {
+    const blob = new Blob([svgContent], {type: 'image/svg+xml'});
+    const url = URL.createObjectURL(blob);
+    imgEl.onload = () => URL.revokeObjectURL(url);
+    imgEl.src = url;
+  }
+
+  ['navLogo','heroLogo','footerLogo'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.onerror = () => loadSVGAsImg(el);
+    }
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
